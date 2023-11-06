@@ -5,7 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func initializeRoutes(r *gin.Engine){
+func initializeRoutes(r *gin.Engine) {
 	v1 := r.Group("/api/v1")
 	{
 		v1.GET("/opening", handler.ShowOpeningsHandler)
@@ -16,8 +16,4 @@ func initializeRoutes(r *gin.Engine){
 	}
 
 	r.Run(":3333")
-}
-
-func CreateOpeningHandler() {
-	panic("unimplemented")
 }
