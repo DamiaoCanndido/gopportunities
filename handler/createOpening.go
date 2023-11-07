@@ -3,6 +3,7 @@ package handler
 import (
 	"net/http"
 
+	"github.com/DamiaoCanndido/gopportunities/schemas"
 	"github.com/gin-gonic/gin"
 )
 
@@ -14,8 +15,18 @@ func CreateOpeningHandler(ctx *gin.Context) {
 		sendError(ctx, http.StatusBadRequest, err.Error())
 		return
 	}
-	if err := db.Create(&request).Error; err != nil {
+	opening := schemas.Opening{
+		Role:     request.Role,
+		Company:  request.Company,
+		Location: request.Location,
+		Remote:   *request.Remote,
+		Link:     request.Link,
+		Salary:   request.Salary,
+	}
+	if err := db.Create(&opening).Error; err != nil {
 		logger.Errorf("error creating opening: %v", err.Error())
+		sendError(ctx, http.StatusInternalServerError, "error creating opening on databaase")
 		return
 	}
+	sendSuccess(ctx, "create opening", opening)
 }
