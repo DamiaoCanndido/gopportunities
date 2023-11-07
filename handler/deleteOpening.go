@@ -12,7 +12,7 @@ func DeleteOpeningsHandler(ctx *gin.Context) {
 	id := ctx.Params.ByName("id")
 	if id == "" {
 		sendError(
-			ctx, http.StatusBadRequest, errParamIsRequired("id", "quueryParameter").Error())
+			ctx, http.StatusBadRequest, errParamIsRequired("id", "parameter").Error())
 		return
 	}
 	opening := schemas.Opening{}
