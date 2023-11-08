@@ -42,6 +42,15 @@ definitions:
       message:
         type: string
     type: object
+  handler.ShowOpeningsResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/schemas.OpeningResponse'
+        type: array
+      message:
+        type: string
+    type: object
   handler.UpdateOpeningRequest:
     properties:
       company:
@@ -91,6 +100,28 @@ info:
   contact: {}
 paths:
   /opening:
+    get:
+      consumes:
+      - application/json
+      description: Show all job openings
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.ShowOpeningsResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+      summary: Show openings
+      tags:
+      - Openings
     post:
       consumes:
       - application/json
