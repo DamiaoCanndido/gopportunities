@@ -15,6 +15,15 @@ type CreateOpeningRequest struct {
 	Salary   int64  `gorm:"type:int;not null" json:"salary"`
 }
 
+type UpdateOpeningRequest struct {
+	Role     string `gorm:"type:text;not null" json:"role"`
+	Company  string `gorm:"type:text;not null" json:"company"`
+	Location string `gorm:"type:text;not null" json:"location"`
+	Remote   *bool  `gorm:"type:bool;not null" json:"remote"`
+	Link     string `gorm:"type:text;not null" json:"link"`
+	Salary   int64  `gorm:"type:int;not null" json:"salary"`
+}
+
 func (r *CreateOpeningRequest) Validate() error {
 	if r.Role == "" && r.Company == "" && r.Link == "" && r.Location == "" && r.Remote == nil && r.Salary <= 0 {
 		return fmt.Errorf("request body is empty or malformed")
@@ -38,4 +47,11 @@ func (r *CreateOpeningRequest) Validate() error {
 		return errParamIsRequired("salary", "int")
 	}
 	return nil
+}
+
+func (r *UpdateOpeningRequest) Validate() error {
+	if r.Role != "" || r.Company != "" || r.Link != "" || r.Location != "" || r.Remote != nil || r.Salary > 0 {
+		return nil
+	}
+	return fmt.Errorf("at least one valid field must be provided")
 }
