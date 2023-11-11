@@ -1,10 +1,12 @@
-package controllers
+package opening
 
 import (
 	"fmt"
 	"net/http"
 
+	h "github.com/DamiaoCanndido/gopportunities/controllers"
 	"github.com/DamiaoCanndido/gopportunities/entities"
+	r "github.com/DamiaoCanndido/gopportunities/helpers"
 	"github.com/gin-gonic/gin"
 )
 
@@ -21,16 +23,17 @@ import (
 // @Failure 404 {object} ErrorResponse
 // @Router /opening/{id} [get]
 func ShowOpeningController(ctx *gin.Context) {
+	_, db := h.InitializeHandler()
 	id := ctx.Params.ByName("id")
 	if id == "" {
-		sendError(
-			ctx, http.StatusBadRequest, errParamIsRequired("id", "parameter").Error())
+		r.SendError(
+			ctx, http.StatusBadRequest, r.ErrParamIsRequired("id", "parameter").Error())
 		return
 	}
 	opening := entities.Opening{}
 	if err := db.First(&opening, id).Error; err != nil {
-		sendError(ctx, http.StatusNotFound, fmt.Sprintf("opening with id: %s not found", id))
+		r.SendError(ctx, http.StatusNotFound, fmt.Sprintf("opening with id: %s not found", id))
 		return
 	}
-	sendSuccess(ctx, "show opening", opening)
+	r.SendSuccess(ctx, "show opening", opening)
 }

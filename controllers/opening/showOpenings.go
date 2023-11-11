@@ -1,9 +1,11 @@
-package controllers
+package opening
 
 import (
 	"net/http"
 
+	h "github.com/DamiaoCanndido/gopportunities/controllers"
 	"github.com/DamiaoCanndido/gopportunities/entities"
+	r "github.com/DamiaoCanndido/gopportunities/helpers"
 	"github.com/gin-gonic/gin"
 )
 
@@ -19,10 +21,11 @@ import (
 // @Failure 404 {object} ErrorResponse
 // @Router /opening [get]
 func ShowOpeningsController(ctx *gin.Context) {
+	_, db := h.InitializeHandler()
 	openings := []entities.Opening{}
 	if err := db.Find(&openings).Error; err != nil {
-		sendError(ctx, http.StatusInternalServerError, "error show openings")
+		r.SendError(ctx, http.StatusInternalServerError, "error show openings")
 		return
 	}
-	sendSuccess(ctx, "list openings", openings)
+	r.SendSuccess(ctx, "list openings", openings)
 }

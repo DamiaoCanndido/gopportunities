@@ -1,8 +1,8 @@
-package controllers
+package helpers
 
 import "fmt"
 
-func errParamIsRequired(name, typ string) error {
+func ErrParamIsRequired(name, typ string) error {
 	return fmt.Errorf("param: %s (type: %s) is required", name, typ)
 }
 
@@ -29,22 +29,22 @@ func (r *CreateOpeningRequest) Validate() error {
 		return fmt.Errorf("request body is empty or malformed")
 	}
 	if r.Role == "" {
-		return errParamIsRequired("role", "string")
+		return ErrParamIsRequired("role", "string")
 	}
 	if r.Company == "" {
-		return errParamIsRequired("company", "string")
+		return ErrParamIsRequired("company", "string")
 	}
 	if r.Location == "" {
-		return errParamIsRequired("location", "string")
+		return ErrParamIsRequired("location", "string")
 	}
 	if r.Link == "" {
-		return errParamIsRequired("link", "string")
+		return ErrParamIsRequired("link", "string")
 	}
 	if r.Remote == nil {
-		return errParamIsRequired("remote", "bool")
+		return ErrParamIsRequired("remote", "bool")
 	}
 	if r.Salary <= 0 {
-		return errParamIsRequired("salary", "int")
+		return ErrParamIsRequired("salary", "int")
 	}
 	return nil
 }
