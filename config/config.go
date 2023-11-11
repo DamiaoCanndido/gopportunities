@@ -13,7 +13,7 @@ var (
 
 func Init() error {
 	var err error
-	db, err = InitializeSQLite()
+	db, err = InitializePostgreSQL()
 	if err != nil {
 		return fmt.Errorf("error initializing sqlite: %v", err)
 	}
