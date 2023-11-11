@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	h "github.com/DamiaoCanndido/gopportunities/controllers"
+	h "github.com/DamiaoCanndido/gopportunities/config"
 	"github.com/DamiaoCanndido/gopportunities/entities"
 	r "github.com/DamiaoCanndido/gopportunities/helpers"
 	"github.com/gin-gonic/gin"
@@ -23,11 +23,11 @@ import (
 // @Failure 404 {object} ErrorResponse
 // @Router /opening/{id} [get]
 func ShowOpeningController(ctx *gin.Context) {
-	_, db := h.InitializeHandler()
+	db := h.GetPostgreSQL()
 	id := ctx.Params.ByName("id")
 	if id == "" {
 		r.SendError(
-			ctx, http.StatusBadRequest, r.ErrParamIsRequired("id", "parameter").Error())
+			ctx, http.StatusBadRequest, ErrParamIsRequired("id", "parameter").Error())
 		return
 	}
 	opening := entities.Opening{}

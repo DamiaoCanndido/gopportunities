@@ -3,7 +3,7 @@ package opening
 import (
 	"net/http"
 
-	h "github.com/DamiaoCanndido/gopportunities/controllers"
+	h "github.com/DamiaoCanndido/gopportunities/config"
 	"github.com/DamiaoCanndido/gopportunities/entities"
 	r "github.com/DamiaoCanndido/gopportunities/helpers"
 	"github.com/gin-gonic/gin"
@@ -21,7 +21,7 @@ import (
 // @Failure 404 {object} ErrorResponse
 // @Router /opening [get]
 func ShowOpeningsController(ctx *gin.Context) {
-	_, db := h.InitializeHandler()
+	db := h.GetPostgreSQL()
 	openings := []entities.Opening{}
 	if err := db.Find(&openings).Error; err != nil {
 		r.SendError(ctx, http.StatusInternalServerError, "error show openings")

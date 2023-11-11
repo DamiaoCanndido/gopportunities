@@ -15,7 +15,7 @@ func Init() error {
 	var err error
 	db, err = InitializePostgreSQL()
 	if err != nil {
-		return fmt.Errorf("error initializing sqlite: %v", err)
+		return fmt.Errorf("error initializing postgreSQL: %v", err)
 	}
 	return nil
 }

@@ -1,7 +1,6 @@
 package router
 
 import (
-	c "github.com/DamiaoCanndido/gopportunities/controllers"
 	docs "github.com/DamiaoCanndido/gopportunities/docs"
 	"github.com/gin-gonic/gin"
 	swaggerfiles "github.com/swaggo/files"
@@ -9,7 +8,6 @@ import (
 )
 
 func initializeRoutes(r *gin.Engine) {
-	c.InitializeHandler()
 	basePath := "/api/v1"
 	docs.SwaggerInfo.BasePath = basePath
 	openingRoutes(r, basePath)

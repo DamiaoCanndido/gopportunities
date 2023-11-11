@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	h "github.com/DamiaoCanndido/gopportunities/controllers"
+	h "github.com/DamiaoCanndido/gopportunities/config"
 	"github.com/DamiaoCanndido/gopportunities/entities"
 	r "github.com/DamiaoCanndido/gopportunities/helpers"
 	"github.com/gin-gonic/gin"
@@ -24,8 +24,9 @@ import (
 // @Failure 404 {object} ErrorResponse
 // @Router /opening/{id} [put]
 func UpdateOpeningController(ctx *gin.Context) {
-	logger, db := h.InitializeHandler()
-	request := r.UpdateOpeningRequest{}
+	logger := h.GetLogger("logger")
+	db := h.GetPostgreSQL()
+	request := UpdateOpeningRequest{}
 	ctx.BindJSON(&request)
 	if err := request.Validate(); err != nil {
 		logger.Errorf("Validation error: %v", err.Error())
@@ -35,7 +36,7 @@ func UpdateOpeningController(ctx *gin.Context) {
 	id := ctx.Params.ByName("id")
 	if id == "" {
 		r.SendError(
-			ctx, http.StatusBadRequest, r.ErrParamIsRequired("id", "parameter").Error())
+			ctx, http.StatusBadRequest, ErrParamIsRequired("id", "parameter").Error())
 		return
 	}
 	opening := entities.Opening{}

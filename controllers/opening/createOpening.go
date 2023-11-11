@@ -3,7 +3,7 @@ package opening
 import (
 	"net/http"
 
-	h "github.com/DamiaoCanndido/gopportunities/controllers"
+	h "github.com/DamiaoCanndido/gopportunities/config"
 	"github.com/DamiaoCanndido/gopportunities/entities"
 	r "github.com/DamiaoCanndido/gopportunities/helpers"
 	"github.com/gin-gonic/gin"
@@ -22,8 +22,9 @@ import (
 // @Failure 500 {object} ErrorResponse
 // @Router /opening [post]
 func CreateOpeningController(ctx *gin.Context) {
-	logger, db := h.InitializeHandler()
-	request := r.CreateOpeningRequest{}
+	logger := h.GetLogger("logger")
+	db := h.GetPostgreSQL()
+	request := CreateOpeningRequest{}
 	ctx.BindJSON(&request)
 	if err := request.Validate(); err != nil {
 		logger.Errorf("validation error: %v", err.Error())
