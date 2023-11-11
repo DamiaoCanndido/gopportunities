@@ -1,9 +1,9 @@
-package handler
+package controllers
 
 import (
 	"net/http"
 
-	"github.com/DamiaoCanndido/gopportunities/schemas"
+	"github.com/DamiaoCanndido/gopportunities/entities"
 	"github.com/gin-gonic/gin"
 )
 
@@ -19,7 +19,7 @@ import (
 // @Failure 400 {object} ErrorResponse
 // @Failure 500 {object} ErrorResponse
 // @Router /opening [post]
-func CreateOpeningHandler(ctx *gin.Context) {
+func CreateOpeningController(ctx *gin.Context) {
 	request := CreateOpeningRequest{}
 	ctx.BindJSON(&request)
 	if err := request.Validate(); err != nil {
@@ -27,7 +27,7 @@ func CreateOpeningHandler(ctx *gin.Context) {
 		sendError(ctx, http.StatusBadRequest, err.Error())
 		return
 	}
-	opening := schemas.Opening{
+	opening := entities.Opening{
 		Role:     request.Role,
 		Company:  request.Company,
 		Location: request.Location,
@@ -37,7 +37,7 @@ func CreateOpeningHandler(ctx *gin.Context) {
 	}
 	if err := db.Create(&opening).Error; err != nil {
 		logger.Errorf("error creating opening: %v", err.Error())
-		sendError(ctx, http.StatusInternalServerError, "error creating opening on databaase")
+		sendError(ctx, http.StatusInternalServerError, "error creating opening on database")
 		return
 	}
 	sendSuccess(ctx, "create opening", opening)

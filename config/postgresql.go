@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/DamiaoCanndido/gopportunities/schemas"
+	"github.com/DamiaoCanndido/gopportunities/entities"
 	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -37,7 +37,7 @@ func InitializePostgreSQL() (*gorm.DB, error) {
 		logger.Errorf("postgresql opening error: %v", err)
 		return nil, err
 	}
-	err = db.AutoMigrate(&schemas.Opening{})
+	err = db.AutoMigrate(&entities.Opening{})
 	if err != nil {
 		logger.Errorf("postgresql automigration error: %v", err)
 		return nil, err

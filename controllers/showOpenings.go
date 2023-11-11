@@ -1,9 +1,9 @@
-package handler
+package controllers
 
 import (
 	"net/http"
 
-	"github.com/DamiaoCanndido/gopportunities/schemas"
+	"github.com/DamiaoCanndido/gopportunities/entities"
 	"github.com/gin-gonic/gin"
 )
 
@@ -18,8 +18,8 @@ import (
 // @Failure 400 {object} ErrorResponse
 // @Failure 404 {object} ErrorResponse
 // @Router /opening [get]
-func ShowOpeningsHandler(ctx *gin.Context) {
-	openings := []schemas.Opening{}
+func ShowOpeningsController(ctx *gin.Context) {
+	openings := []entities.Opening{}
 	if err := db.Find(&openings).Error; err != nil {
 		sendError(ctx, http.StatusInternalServerError, "error show openings")
 		return

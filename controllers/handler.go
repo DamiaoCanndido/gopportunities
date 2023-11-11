@@ -1,4 +1,4 @@
-package handler
+package controllers
 
 import (
 	"github.com/DamiaoCanndido/gopportunities/config"
@@ -12,5 +12,5 @@ var (
 
 func InitializeHandler() {
 	logger = config.GetLogger("handler")
-	db = config.GetSqlite()
+	db = config.GetPostgreSQL()
 }

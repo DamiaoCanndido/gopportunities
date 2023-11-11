@@ -1,10 +1,10 @@
-package handler
+package controllers
 
 import (
 	"fmt"
 	"net/http"
 
-	"github.com/DamiaoCanndido/gopportunities/schemas"
+	"github.com/DamiaoCanndido/gopportunities/entities"
 	"github.com/gin-gonic/gin"
 )
 
@@ -30,26 +30,26 @@ type ErrorResponse struct {
 }
 
 type CreateOpeningResponse struct {
-	Message string                  `json:"message"`
-	Data    schemas.OpeningResponse `json:"data"`
+	Message string                   `json:"message"`
+	Data    entities.OpeningResponse `json:"data"`
 }
 
 type ShowOpeningsResponse struct {
-	Message string                    `json:"message"`
-	Data    []schemas.OpeningResponse `json:"data"`
+	Message string                     `json:"message"`
+	Data    []entities.OpeningResponse `json:"data"`
 }
 
 type ShowOpeningResponse struct {
-	Message string                  `json:"message"`
-	Data    schemas.OpeningResponse `json:"data"`
+	Message string                   `json:"message"`
+	Data    entities.OpeningResponse `json:"data"`
 }
 
 type UpdateOpeningResponse struct {
-	Message string                  `json:"message"`
-	Data    schemas.OpeningResponse `json:"data"`
+	Message string                   `json:"message"`
+	Data    entities.OpeningResponse `json:"data"`
 }
 
 type DeleteOpeningResponse struct {
-	Message string                  `json:"message"`
-	Data    schemas.OpeningResponse `json:"data"`
+	Message string                   `json:"message"`
+	Data    entities.OpeningResponse `json:"data"`
 }
